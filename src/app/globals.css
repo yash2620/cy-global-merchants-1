@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-black: #FFFFFF;       /* Background becomes premium clean white */
+  --color-premium-white: #0A0A0A;       /* Standard B2B text becomes deep charcoal black */
+  --color-luxury-gold: #0C5A3E;         /* Highlights and primary B2B accents become Royal Green */
+  --color-emerald-dark: #052F1E;        /* Deep Green for special buttons and highlights */
+  --color-subdued-gray: #F3F5F4;        /* Subdued cards become very light grey-green tint */
+  --color-card-bg: #FFFFFF;             /* Cards inherit a crisp white background */
+  --color-gold-hover: #083E2A;          /* Royal Green Hover */
+  
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-outfit);
+}
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #0A0A0A;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar optimized for premium white/green theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F3F5F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #0C5A3E;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #083E2A;
+}
+
+/* Premium light-themed micro-animations & glowing classes */
+.gold-glow {
+  box-shadow: 0 4px 20px rgba(12, 90, 62, 0.05), 0 0 2px rgba(12, 90, 62, 0.1);
+}
+.green-glow {
+  box-shadow: 0 4px 20px rgba(5, 47, 30, 0.08);
+}
+.gold-gradient {
+  background: linear-gradient(135deg, #0C5A3E 0%, #083E2A 100%);
+}
+.emerald-gradient {
+  background: linear-gradient(135deg, #052F1E 0%, #0C5A3E 100%);
+}
+.dark-gradient {
+  background: linear-gradient(180deg, #F3F5F4 0%, #FFFFFF 100%);
+}
+.border-gold-subtle {
+  border-color: rgba(12, 90, 62, 0.15);
+}
+
+/* Smooth reveal hover effects for luxury cards adapted to white-green styling */
+.luxury-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(12, 90, 62, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  border-color: rgba(12, 90, 62, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05), 0 0 20px rgba(12, 90, 62, 0.03);
+}
