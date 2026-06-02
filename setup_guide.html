@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Setup & Supabase Configuration Guide</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --accent-pink: #ec4899;
+      --success-green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding: 2rem 1rem;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      color: #818cf8;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.5rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      margin-bottom: 2.5rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 25px 50px rgba(99, 102, 241, 0.08);
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #fff;
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    ol, ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    strong {
+      color: #fff;
+    }
+
+    .code-container {
+      position: relative;
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1.25rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      color: #38bdf8;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .code-comment {
+      color: #64748b;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-family: inherit;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
+    .highlight-box {
+      background: rgba(99, 102, 241, 0.05);
+      border-left: 4px solid var(--accent-indigo);
+      padding: 1.25rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .checklist-checkbox {
+      margin-top: 0.25rem;
+      accent-color: var(--accent-indigo);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+    }
+
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent-indigo);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .external-link:hover {
+      color: var(--accent-pink);
+      text-decoration: underline;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+      .card {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">Local Environment Setup</div>
+      <h1>Workspace & Supabase Blueprint</h1>
+      <p class="subtitle">An interactive step-by-step developer walkthrough to create a Supabase database, configure environment variables, and install dependencies locally.</p>
+    </header>
+
+    <!-- STEP 1: Supabase Setup -->
+    <div class="card">
+      <h2><span class="step-number">1</span> Create & Provision Your Supabase Project</h2>
+      <p>Supabase acts as your secure backend database. To set it up and obtain your custom API keys, follow these instructions:</p>
+      
+      <ol>
+        <li>Go to the <a href="https://supabase.com" target="_blank" class="external-link">Supabase Dashboard ↗</a> and sign in using your GitHub account.</li>
+        <li>Click on the <strong>+ New Project</strong> button.</li>
+        <li>Select or create an organization, then fill in the project settings:
+          <ul>
+            <li><strong>Name:</strong> <code>cy-global-merchants</code></li>
+            <li><strong>Database Password:</strong> Create a strong password (save it safely).</li>
+            <li><strong>Region:</strong> Select the region closest to your main user base.</li>
+            <li><strong>Pricing:</strong> Choose the <strong>Free tier</strong>.</li>
+          </ul>
+        </li>
+        <li>Click <strong>Create New Project</strong>. The provisioning process will take approximately 1-2 minutes to prepare your secure database instance.</li>
+      </ol>
+
+      <div class="highlight-box">
+        <p><strong>💡 How to find your API credentials:</strong><br>
+        Once provisioning completes, navigate to <strong>Project Settings</strong> (gear icon at bottom left) ➔ <strong>API</strong>. Here you will find your custom <strong>Project URL</strong> and your <strong>anon public API key</strong>.</p>
+      </div>
+    </div>
+
+    <!-- STEP 2: Local Environment Configuration -->
+    <div class="card">
+      <h2><span class="step-number">2</span> Create Local Environment File</h2>
+      <p>Next.js is designed to load your secret variables securely from local files. In the root directory of your workspace, create a file named <code>.env.local</code> and paste your custom credentials inside it.</p>
+
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyEnvText()">Copy Configuration</button>
+        <pre id="env-code">
+<span class="code-comment"># Supabase Credentials (Pre-configured for project faywvbptdyfydzgocenk)</span>
+NEXT_PUBLIC_SUPABASE_URL=https://faywvbptdyfydzgocenk.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-public-key-here
+
+<span class="code-comment"># Resend Email Integration API Key</span>
+RESEND_API_KEY=re_your_secret_resend_api_key
+
+<span class="code-comment"># Analytics & Tracking (Optional)</span>
+NEXT_PUBLIC_GA_ID=
+NEXT_PUBLIC_CLARITY_ID=</pre>
+      </div>
+
+      <div class="highlight-box" style="border-left-color: var(--accent-pink);">
+        <p>⚠️ <strong>Important Security Note:</strong> The <code>.env.local</code> file is already ignored in your <code>.gitignore</code>, ensuring your private database passwords and secret API keys are never leaked to public repositories on GitHub.</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: Local Installation -->
+    <div class="card">
+      <h2><span class="step-number">3</span> Install Project Dependencies</h2>
+      <p>Now, set up your development environment locally. Open your terminal in the project directory (<code>cy-global-merchants</code>) and execute the following commands:</p>
+      
+      <ol>
+        <li>Make sure <a href="https://nodejs.org/" target="_blank" class="external-link">Node.js (LTS version) ↗</a> is installed on your local computer.</li>
+        <li>Install all required dependencies (React 19, Next.js 15, Framer Motion, TailwindCSS, etc.) by running:</li>
+      </ol>
+
+      <div class="code-container" style="color: #a7f3d0;">
+        <pre>npm install</pre>
+      </div>
+
+      <p>This command downloads and configures all dependencies declared inside your <code>package.json</code> file into a local <code>node_modules</code> directory.</p>
+    </div>
+
+    <!-- STEP 4: Start Dev Server -->
+    <div class="card">
+      <h2><span class="step-number">4</span> Launch the Development Server</h2>
+      <p>Once installation finishes and your environment keys are in place, spin up the local server to run your site:</p>
+
+      <div class="code-container" style="color: #a7f3d0;">
+        <pre>npm run dev</pre>
+      </div>
+
+      <p>Your local server will boot up and host the live development site at:</p>
+      <div class="highlight-box" style="border-left-color: var(--success-green); background: rgba(16, 185, 129, 0.05);">
+        <p>👉 <strong><a href="http://localhost:3000" target="_blank" class="external-link" style="color: var(--success-green);">http://localhost:3000 ↗</a></strong></p>
+      </div>
+    </div>
+
+    <!-- Checklist & Success Tracking -->
+    <div class="card" style="margin-bottom: 0;">
+      <h2>🚀 Local Readiness Checklist</h2>
+      <p>Mark each checkbox as you complete the step to track your deployment progress:</p>
+      
+      <div class="checklist-item">
+        <input type="checkbox" id="check-1" class="checklist-checkbox">
+        <label for="check-1">Supabase account created & new project provisioned</label>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="check-2" class="checklist-checkbox">
+        <label for="check-2">Supabase URL & Anon Key successfully copied</label>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="check-3" class="checklist-checkbox">
+        <label for="check-3"><code>.env.local</code> file created in the project's root folder</label>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="check-4" class="checklist-checkbox">
+        <label for="check-4"><code>npm install</code> completed successfully without errors</label>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="check-5" class="checklist-checkbox">
+        <label for="check-5"><code>npm run dev</code> launched and running at <code>http://localhost:3000</code></label>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyEnvText() {
+      const codeText = `NEXT_PUBLIC_SUPABASE_URL=https://faywvbptdyfydzgocenk.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-public-key-here
+RESEND_API_KEY=re_your_secret_resend_api_key
+NEXT_PUBLIC_GA_ID=
+NEXT_PUBLIC_CLARITY_ID=`;
+      
+      navigator.clipboard.writeText(codeText).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied! ✓';
+        btn.style.background = 'rgba(16, 185, 129, 0.2)';
+        btn.style.borderColor = 'var(--success-green)';
+        setTimeout(() => {
+          btn.textContent = 'Copy Configuration';
+          btn.style.background = 'rgba(255, 255, 255, 0.08)';
+          btn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

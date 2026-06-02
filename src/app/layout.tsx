@@ -53,6 +53,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/images/cy-global-brand-logo.jpeg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/images/cy-global-brand-logo.jpeg", sizes: "16x16", type: "image/jpeg" },
+    ],
+    apple: { url: "/images/cy-global-brand-logo.jpeg", sizes: "180x180", type: "image/jpeg" },
+  },
   robots: {
     index: true,
     follow: true,
