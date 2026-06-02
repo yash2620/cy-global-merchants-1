@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
@@ -12,7 +13,6 @@ const navLinks = [
   { label: "About", href: "/about" },
   { label: "Products", href: "/products" },
   { label: "Export Markets", href: "/markets" },
-  { label: "Why Choose Us", href: "/#why-choose-us" },
   { label: "Real Estate Advisory", href: "/real-estate" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -48,17 +48,27 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="group flex flex-col focus:outline-none">
-            <span className="font-serif text-lg md:text-xl font-bold uppercase tracking-[0.2em] text-premium-white group-hover:text-luxury-gold transition-colors duration-300">
-              CY Global
-            </span>
-            <span className="font-sans text-[9px] font-semibold uppercase tracking-[0.35em] text-luxury-gold group-hover:text-premium-white transition-colors duration-300 -mt-1">
-              Merchants
-            </span>
+          <Link href="/" className="group flex items-center gap-3 focus:outline-none">
+            <Image
+              src="/images/cy-global-brand-logo.jpeg"
+              alt="CY Global Merchants"
+              width={48}
+              height={48}
+              className="h-9 md:h-10 w-auto object-contain"
+              priority
+            />
+            <div className="flex flex-col">
+              <span className="font-serif text-lg md:text-xl font-bold uppercase tracking-[0.2em] text-premium-white group-hover:text-luxury-gold transition-colors duration-300 leading-tight">
+                CY Global
+              </span>
+              <span className="font-sans text-[9px] font-semibold uppercase tracking-[0.35em] text-luxury-gold group-hover:text-premium-white transition-colors duration-300 leading-tight">
+                Merchants
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center space-x-10">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -85,7 +95,7 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center">
+          <div className="hidden lg:flex items-center ml-8">
             <Link href="/contact">
               <Button
                 variant="outline"

@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 interface Product {
   id: string;
   name: string;
+  image: string;
   hsCode: string;
   subTitle: string;
   description: string;
@@ -24,6 +25,7 @@ const productsData: Product[] = [
   {
     id: "agarbatti",
     name: "Incense Sticks (Agarbatti)",
+    image: "/images/Incense sticks photo.webp",
     hsCode: "33074100",
     subTitle: "Aromatic Sustainable Bamboo Core Agarbatti",
     description: "Premium hand-rolled charcoal-free incense sticks manufactured using natural binding gums, organic plant resins, raw essential oils, and traditional Indian floral distillates. Formulated for high aroma retention, low ash output, and slow, non-toxic burns.",
@@ -53,6 +55,7 @@ const productsData: Product[] = [
   {
     id: "handicrafts",
     name: "Brass Decorative Handicrafts",
+    image: "/images/Brass decorative handicrafts.webp",
     hsCode: "74199930",
     subTitle: "Legacy Smelted Fine Metal Handiworks",
     description: "Exceptional decorative artifacts, idols, and centerpieces crafted by hereditary brass smelting guilds in Western India. Created utilizing sand-casting or lost-wax techniques, polished to a premium mirror finish or protected with antique patina coatings.",
@@ -82,6 +85,7 @@ const productsData: Product[] = [
   {
     id: "yoga",
     name: "Premium Sourced Yoga Products",
+    image: "/images/Yoga products.webp",
     hsCode: "95069190",
     subTitle: "Eco-Friendly Biodegradable Wellness Accessories",
     description: "Fully sustainable B2B yoga accessories, including organic oak tree cork mats, high-density natural cork blocks, non-stretch cotton stretching straps, and buckwheat-filled yoga bolsters. Completely free from harmful PVCs and synthetics.",
@@ -111,6 +115,7 @@ const productsData: Product[] = [
   {
     id: "tote-bags",
     name: "Organic Cotton Tote Bags",
+    image: "/images/Cotton tote bags.webp",
     hsCode: "420292",
     subTitle: "Heavyweight Reusable Organic Canvas Shopping Bags",
     description: "Sustainable packaging alternatives crafted using robust, long-staple Indian organic cotton. Available in unbleached natural textures or custom dyed using non-toxic vegetable inks. Fully reinforced stitching at stress points.",
@@ -226,6 +231,14 @@ export default function Products() {
                   {p.subTitle}
                 </h4>
 
+                <div className="relative w-full h-64 md:h-80 overflow-hidden border border-white/5 bg-subdued-gray/30">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
                 <p className="font-sans text-sm md:text-base leading-relaxed text-premium-white/70">
                   {p.description}
                 </p>
@@ -323,11 +336,16 @@ export default function Products() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
           {[
             { tag: "SGS / Intertek", label: "Third-Party Audits" },
-            { tag: "FIEO Registered", label: "National Export Body" },
+            { tag: "FIEO Registered", label: "National Export Body", logo: "/images/fieo.png" },
             { tag: "Phytosanitary", label: "Wellness Clearance" },
             { tag: "APEDA Compliant", label: "Agricultural Standard" },
           ].map((item, idx) => (
-            <div key={idx} className="border border-white/5 bg-subdued-gray/30 p-4">
+            <div key={idx} className="border border-white/5 bg-subdued-gray/30 p-4 flex flex-col items-center justify-center min-h-[120px] group transition-all duration-300 hover:border-luxury-gold/25">
+              {item.logo ? (
+                <div className="h-8 flex items-center justify-center mb-2">
+                  <img src={item.logo} alt={item.tag} className="max-h-full w-auto object-contain" />
+                </div>
+              ) : null}
               <span className="font-serif text-sm font-bold text-luxury-gold block uppercase tracking-wider">{item.tag}</span>
               <span className="font-sans text-[10px] text-premium-white/40 block uppercase tracking-widest mt-1">{item.label}</span>
             </div>

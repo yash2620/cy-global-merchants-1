@@ -5,19 +5,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Globe,
-  ShieldCheck,
-  Truck,
-  Award,
   ArrowRight,
-  TrendingUp,
   FileCheck,
-  Building,
   CheckCircle,
-  FileText,
-  BadgeAlert,
   Download,
   Building2,
-  Gem,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Counter from "@/components/ui/Counter";
@@ -60,7 +52,7 @@ export default function Home() {
   return (
     <div className="bg-primary-black min-h-screen text-premium-white">
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[90vh] flex items-center justify-center py-20 overflow-hidden border-b border-white/5">
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden border-b border-white/5">
         {/* Subtle Animated Gold Mesh Background & Grid lines */}
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-luxury-gold/20 rounded-full blur-[100px] animate-pulse duration-10000"></div>
@@ -93,25 +85,14 @@ export default function Home() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-4"
-          >
-            <Badge variant="gold" className="text-xs py-1 px-4 tracking-[0.25em]">
-              👑 Est. 2026 / FIEO Registered
-            </Badge>
-          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight leading-[1.1] max-w-5xl mb-6"
-          >
-            Bridging India&apos;s Heritage <br />
-            <span className="text-luxury-gold gold-gradient bg-clip-text text-transparent">With Global Commerce</span>
+          >            Bridging India&apos;s Heritage <br />
+            <span className="text-luxury-gold">With Global Commerce</span>
           </motion.h1>
 
           <motion.p
@@ -200,24 +181,34 @@ export default function Home() {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {[
-              { title: "IEC Registered", desc: "Import Export Code" },
-              { title: "GST Compliant", desc: "Goods & Services Tax" },
-              { title: "MSME Certified", desc: "Govt of India" },
-              { title: "AD Code Registered", desc: "Authorized Dealer" },
-              { title: "FIEO RCMC", desc: "Export Organisation" },
-              { title: "SEPC Registered", desc: "Services Export" }
+              { title: "IEC Registered", desc: "Import Export Code", logo: "/images/IEC logo.webp" },
+              { title: "GST Compliant", desc: "Goods & Services Tax", logo: "/images/GST logo.webp" },
+              { title: "MSME Certified", desc: "Govt of India", logo: "/images/msme.jpg" },
+              { title: "AD Code Registered", desc: "Authorized Dealer", logo: "/images/GST logo.webp" },
+              { title: "FIEO RCMC", desc: "Export Organisation", logo: "/images/fieo.png" },
+              { title: "SEPC Registered", desc: "Services Export", logo: "/images/sepc.png" }
             ].map((badge, idx) => (
               <div 
                 key={idx} 
-                className="bg-subdued-gray/30 border border-white/5 hover:border-luxury-gold/30 p-4 text-center transition-all duration-300 group rounded-none"
+                className="bg-subdued-gray/30 border border-white/5 hover:border-luxury-gold/30 p-4 text-center transition-all duration-300 group rounded-none flex flex-col items-center justify-between min-h-[140px]"
               >
-                <FileCheck size={18} className="text-luxury-gold mx-auto mb-2 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-                <h5 className="font-sans text-[11px] font-bold uppercase tracking-widest text-premium-white">
-                  {badge.title}
-                </h5>
-                <p className="font-sans text-[9px] text-premium-white/40 uppercase mt-0.5 tracking-wider">
-                  {badge.desc}
-                </p>
+                <div className="w-full flex-1 flex items-center justify-center mb-3">
+                  {badge.logo ? (
+                    <div className="h-10 flex items-center justify-center">
+                      <img src={badge.logo} alt={badge.title} className="max-h-full max-w-[80px] object-contain" />
+                    </div>
+                  ) : (
+                    <FileCheck size={18} className="text-luxury-gold mx-auto opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                  )}
+                </div>
+                <div>
+                  <h5 className="font-sans text-[11px] font-bold uppercase tracking-widest text-premium-white">
+                    {badge.title}
+                  </h5>
+                  <p className="font-sans text-[9px] text-premium-white/40 uppercase mt-0.5 tracking-wider">
+                    {badge.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -225,7 +216,7 @@ export default function Home() {
       </section>
 
       {/* 4. EXECUTIVE COMPANY OVERVIEW */}
-      <section className="py-24 max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="py-24 max-w-5xl mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -270,48 +261,6 @@ export default function Home() {
             </Link>
           </div>
         </motion.div>
-
-        {/* Visual Showcase (Pune Sourcing Nodes illustration) */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative aspect-square bg-subdued-gray/40 border border-luxury-gold/15 p-8 flex flex-col justify-between gold-glow group"
-        >
-          <div className="absolute top-0 right-0 p-4">
-            <Gem size={28} className="text-luxury-gold/20 group-hover:text-luxury-gold transition-colors duration-500" />
-          </div>
-
-          <div>
-            <span className="font-sans text-[10px] font-bold text-luxury-gold tracking-[0.3em] uppercase block mb-2">
-              Sourcing Hub / Maharashtra
-            </span>
-            <h3 className="font-serif text-2xl font-bold uppercase tracking-wider text-premium-white mb-4">
-              Pune Logistics Nexus
-            </h3>
-            <p className="font-sans text-xs text-premium-white/60 leading-relaxed max-w-sm">
-              Our headquarters in Pune acts as the primary validation cluster, managing agricultural quality, cargo consolidation, customs declarations, and direct port integration to Nhava Sheva (Mumbai).
-            </p>
-          </div>
-
-          {/* Sourcing Timeline previews */}
-          <div className="space-y-4 mt-8 pt-8 border-t border-white/5">
-            {[
-              { step: "01", title: "Direct Factory Audits", desc: "Rigorous ISO & ethical audits at site." },
-              { step: "02", title: "Nhava Sheva Port Dispatch", desc: "Secure container packing and custom clearings." },
-              { step: "03", title: "Global CIF Deliveries", desc: "Integrated sea/air transit tracking for B2B buyers." },
-            ].map((node, index) => (
-              <div key={index} className="flex space-x-4">
-                <span className="font-serif text-xs font-bold text-luxury-gold">{node.step}</span>
-                <div>
-                  <h5 className="font-sans text-[11px] font-bold uppercase tracking-wider text-premium-white">{node.title}</h5>
-                  <p className="font-sans text-[10px] text-premium-white/40 uppercase mt-0.5">{node.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </section>
 
       {/* 5. PRODUCT PREVIEW DASHBOARD */}
@@ -339,6 +288,7 @@ export default function Home() {
               {
                 id: "agarbatti",
                 name: "Incense Sticks (Agarbatti)",
+                image: "/images/Incense sticks photo.webp",
                 hs: "33074100",
                 desc: "High-grade natural aromatic extracts, hand-rolled with organic binding powders. Non-toxic slow burn.",
                 moq: "500 Kg",
@@ -346,6 +296,7 @@ export default function Home() {
               {
                 id: "handicrafts",
                 name: "Brass Decorative Handicrafts",
+                image: "/images/Brass decorative handicrafts.webp",
                 hs: "74199930",
                 desc: "Luxury heavy-gauge decorative items, masterfully crafted by legacy Indian brassware metalsmiths.",
                 moq: "100 Units",
@@ -353,6 +304,7 @@ export default function Home() {
               {
                 id: "yoga",
                 name: "Yoga Sourcing Products",
+                image: "/images/Yoga products.webp",
                 hs: "95069190",
                 desc: "Premium cork and organic cotton mats, blocks, and wellness straps. Fully biodegradable, non-slip coatings.",
                 moq: "200 Sets",
@@ -360,6 +312,7 @@ export default function Home() {
               {
                 id: "tote-bags",
                 name: "Cotton Tote Bags",
+                image: "/images/Cotton tote bags.webp",
                 hs: "420292",
                 desc: "Eco-friendly, robust woven shopping accessories. Grade-A long-staple Indian cotton canvas. Customizable screenprinting.",
                 moq: "1,000 Pcs",
@@ -371,8 +324,11 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="luxury-card p-6 flex flex-col justify-between h-[350px] relative overflow-hidden group"
+                className="luxury-card p-6 flex flex-col justify-between h-[400px] relative overflow-hidden group"
               >
+                <div className="relative w-full h-32 mb-4 overflow-hidden bg-subdued-gray/30 border border-white/5">
+                  <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                </div>
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <Badge variant="gold" className="text-[9px]">HS CODE: {p.hs}</Badge>
@@ -405,56 +361,6 @@ export default function Home() {
       </section>
 
       {/* 6. WHY CHOOSE US - THE TRUST SYSTEM */}
-      <section id="why-choose-us" className="py-24 max-w-7xl mx-auto px-6 md:px-12 scroll-mt-24">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <Badge variant="gold">B2B Sourcing Security</Badge>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mt-4 mb-6">
-            Elite Sourcing Framework
-          </h2>
-          <p className="font-sans text-sm text-premium-white/60 uppercase tracking-widest leading-relaxed">
-            Engineered to eliminate global trading friction and deliver consistent cargo quality.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            {
-              icon: <ShieldCheck size={28} />,
-              title: "100% Quality Audited",
-              desc: "Every product batch goes through pre-shipment inspections (SGS/third-party options supported).",
-            },
-            {
-              icon: <FileText size={28} />,
-              title: "Global Documentation",
-              desc: "End-to-end documentation including Certificates of Origin, FIEO declarations, and customized B/L parameters.",
-            },
-            {
-              icon: <Truck size={28} />,
-              title: "Multimodal Shipping",
-              desc: "Flexible freight arrangements across key sea ports (Nhava Sheva, Mundra) and international air cargo terminals.",
-            },
-            {
-              icon: <Globe size={28} />,
-              title: "Authorized AD Code Desk",
-              desc: "Streamlined corporate banking transactions with secure escrow options and compliance validation.",
-            },
-          ].map((item, idx) => (
-            <div 
-              key={idx} 
-              className="bg-subdued-gray/30 border border-white/5 hover:border-luxury-gold/20 p-6 transition-all duration-300 rounded-none group"
-            >
-              <div className="text-luxury-gold mb-4 group-hover:scale-105 transition-transform duration-300">{item.icon}</div>
-              <h4 className="font-serif text-lg font-bold text-premium-white uppercase tracking-wider mb-2">
-                {item.title}
-              </h4>
-              <p className="font-sans text-xs text-premium-white/50 leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* 7. REAL ESTATE ADVISORY (Secondary division, beautifully framed) */}
       <section className="py-24 bg-gradient-to-b from-primary-black to-emerald-dark/10 border-t border-white/5 relative">
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

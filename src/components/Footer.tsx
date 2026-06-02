@@ -134,6 +134,32 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Certifications & Memberships Row */}
+      <div className="max-w-7xl mx-auto pt-8 pb-4 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col items-center md:items-start space-y-1">
+          <span className="font-serif text-[10px] font-bold uppercase tracking-[0.2em] text-luxury-gold">
+            Accredited Member & Registered Exporter
+          </span>
+          <span className="font-sans text-[9px] text-premium-white/40 uppercase tracking-widest">
+            Government of India Recognized Export & Enterprise Certifications
+          </span>
+        </div>
+          <div className="flex items-center space-x-6 md:space-x-8">
+            <div className="h-10 flex items-center justify-center">
+              <img src="/images/fieo.png" alt="FIEO Member" className="max-h-full w-auto object-contain max-w-[65px]" />
+            </div>
+            <div className="h-10 flex items-center justify-center">
+              <img src="/images/msme.jpg" alt="MSME Certified" className="max-h-full w-auto object-contain max-w-[65px]" />
+            </div>
+            <div className="h-10 flex items-center justify-center">
+              <img src="/images/sepc.png" alt="SEPC Registered" className="max-h-full w-auto object-contain max-w-[65px]" />
+            </div>
+            <div className="h-10 flex items-center justify-center">
+              <img src="/images/GST logo.webp" alt="GST Compliant" className="max-h-full w-auto object-contain max-w-[65px]" />
+            </div>
+          </div>
+      </div>
+
       {/* Base Bar */}
       <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-xs tracking-wider text-premium-white/40">
         <p className="font-sans mb-4 md:mb-0">

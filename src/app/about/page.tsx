@@ -195,7 +195,7 @@ export default function About() {
               {/* Timeline dot */}
               <span className="absolute -left-[37px] top-1.5 w-4 h-4 bg-primary-black border-2 border-luxury-gold rounded-full"></span>
               
-              <span className="font-sans text-[10px] font-bold text-luxury-gold uppercase tracking-[0.2em] block mb-1">
+              <span className="font-sans text-[10px] font-bold text-luxury-gold uppercase tracking-[0.25em] block mb-1">
                 {item.year}
               </span>
               <h4 className="font-serif text-xl font-bold text-premium-white uppercase tracking-wider mb-2">
@@ -204,6 +204,22 @@ export default function About() {
               <p className="font-sans text-xs md:text-sm text-premium-white/60 leading-relaxed">
                 {item.desc}
               </p>
+              {idx === 1 && (
+                  <div className="flex items-center space-x-6 mt-4 pb-2">
+                    <div className="h-7 flex items-center justify-center">
+                      <img src="/images/fieo.png" alt="FIEO" className="max-h-full w-auto object-contain" />
+                    </div>
+                    <div className="h-7 flex items-center justify-center">
+                      <img src="/images/msme.jpg" alt="MSME" className="max-h-full w-auto object-contain" />
+                    </div>
+                    <div className="h-7 flex items-center justify-center">
+                      <img src="/images/sepc.png" alt="SEPC" className="max-h-full w-auto object-contain" />
+                    </div>
+                    <div className="h-7 flex items-center justify-center">
+                      <img src="/images/GST logo.webp" alt="GST" className="max-h-full w-auto object-contain" />
+                    </div>
+                  </div>
+              )}
             </motion.div>
           ))}
         </div>
